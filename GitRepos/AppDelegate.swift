@@ -17,11 +17,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let initialViewController = RepositoriesViewController(viewModel: RepositoriesViewModel())
         let navigationController = UINavigationController(rootViewController: initialViewController)
         
-        UINavigationBar.appearance().tintColor = .white
-        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-        UINavigationBar.appearance().barTintColor = UIColor(red: 63/255, green: 45/255, blue: 59/255, alpha: 1)
-        UINavigationBar.appearance().isTranslucent = false
-        
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.rootViewController = navigationController
         self.window?.makeKeyAndVisible()

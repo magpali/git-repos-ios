@@ -10,7 +10,7 @@ import Alamofire
 import Foundation
 
 enum Router {
-    case searchRepositories(languages: [String], sortBy: SortParameters, order: SortOrder, page: Int)
+    case searchRepositories(languages: [String], sortBy: SortParameters, order: SortOrder, page: Int, itemsPerPage: Int)
 }
 
 extension Router {
@@ -35,9 +35,9 @@ extension Router {
     
     var queryString: String? {
         switch self {
-        case .searchRepositories(let languages, let sortBy, let order, let page):
+        case .searchRepositories(let languages, let sortBy, let order, let page, let itemsPerPage):
             let languagesQuery = languages.joined(separator: "+")
-            return "?q=languages:\(languagesQuery)&sort=\(sortBy)&order=\(order)&page=\(page)"
+            return "?q=language:\(languagesQuery)&sort=\(sortBy.rawValue)&order=\(order.rawValue)&page=\(page)&per_page=\(itemsPerPage)"
         }
     }
     

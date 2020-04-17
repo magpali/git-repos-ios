@@ -22,10 +22,13 @@ class RepositoriesViewController: UIViewController {
         return tableView
     }()
     
+    private var refreshControl = UIRefreshControl()
+    
     init(viewModel: RepositoriesViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         
+        setup()
         bindValues()
     }
     
@@ -41,6 +44,11 @@ class RepositoriesViewController: UIViewController {
         viewModel.refreshSearch()
     }
     
+    private func setup() {
+        title = "Swift"
+        tableView.refreshControl = refreshControl
+    }
+    
     private func bindValues() {
         viewModel.repositoryViewModels
             .bind(to: tableView.rx.items(cellIdentifier: RepositoryTableViewCell.reuseIdentifier,
@@ -48,6 +56,12 @@ class RepositoriesViewController: UIViewController {
                                             cell.setViews(with: element)
                                             self?.viewModel.currentRow.accept(row)
             }.disposed(by: disposeBag)
+        
+        viewModel.refreshing.bind(to: refreshControl.rx.isRefreshing).disposed(by: disposeBag)
+        
+        refreshControl.rx.controlEvent(.primaryActionTriggered).subscribe(onNext: { [weak self] in
+            self?.viewModel.refreshSearch()
+        }).disposed(by: disposeBag)
     }
     
     

@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		B6022F352447DA5700E7E383 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6022F342447DA5700E7E383 /* AppDelegate.swift */; };
-		B6022F392447DA5700E7E383 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6022F382447DA5700E7E383 /* ViewController.swift */; };
 		B6022F3E2447DA5800E7E383 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B6022F3D2447DA5800E7E383 /* Assets.xcassets */; };
 		B6022F412447DA5800E7E383 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6022F3F2447DA5800E7E383 /* LaunchScreen.storyboard */; };
 		B60B735624497646004963C3 /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B60B735524497646004963C3 /* UIImageExtensions.swift */; };
@@ -34,7 +33,6 @@
 		612A668DC21739EE201731DF /* Pods-GitRepos.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitRepos.release.xcconfig"; path = "Target Support Files/Pods-GitRepos/Pods-GitRepos.release.xcconfig"; sourceTree = "<group>"; };
 		B6022F312447DA5700E7E383 /* GitRepos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GitRepos.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6022F342447DA5700E7E383 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B6022F382447DA5700E7E383 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		B6022F3D2447DA5800E7E383 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B6022F402447DA5800E7E383 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B6022F422447DA5800E7E383 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -100,7 +98,6 @@
 				B6B1D6782447DD6A00F5900F /* Model */,
 				B6B1D6732447DB5E00F5900F /* API */,
 				B6022F342447DA5700E7E383 /* AppDelegate.swift */,
-				B6022F382447DA5700E7E383 /* ViewController.swift */,
 				B6022F3D2447DA5800E7E383 /* Assets.xcassets */,
 				B6022F3F2447DA5800E7E383 /* LaunchScreen.storyboard */,
 				B6022F422447DA5800E7E383 /* Info.plist */,
@@ -302,7 +299,6 @@
 				B68EC6482448AB0900ABFC97 /* RepositoriesViewController.swift in Sources */,
 				B68EC6422447F5ED00ABFC97 /* Router.swift in Sources */,
 				B6B1D67A2447DD7700F5900F /* Repository.swift in Sources */,
-				B6022F392447DA5700E7E383 /* ViewController.swift in Sources */,
 				B6022F352447DA5700E7E383 /* AppDelegate.swift in Sources */,
 				B60B735C2449807E004963C3 /* RepositoryAuthorAvatarComponent.swift in Sources */,
 			);

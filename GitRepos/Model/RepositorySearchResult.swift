@@ -29,8 +29,16 @@ struct RepositorySearchResult: Codable {
         case items
     }
     
-    static func searchForRepositories(in languages: [String], sortBy sortParams: SortParameters, order: SortOrder, page: Int) -> Single<RepositorySearchResult> {
-        let router = Router.searchRepositories(languages: languages, sortBy: sortParams, order: order, page: page)
+    static func searchForRepositories(in languages: [String],
+                                      sortBy sortParams: SortParameters,
+                                      order: SortOrder,
+                                      page: Int,
+                                      itemsPerPage: Int) -> Single<RepositorySearchResult> {
+        let router = Router.searchRepositories(languages: languages,
+                                               sortBy: sortParams,
+                                               order: order,
+                                               page: page,
+                                               itemsPerPage: itemsPerPage)
         
         let request = RequestManager.request(with: router) as Single<RepositorySearchResult>
         return request
