@@ -7,6 +7,7 @@
 //
 
 import Alamofire
+import AlamofireImage
 import RxSwift
 import Foundation
 
@@ -31,8 +32,24 @@ class RequestManager {
         }
         
         return single
-        
-
+    }
+    
+    class func requestImage(with url: URL) -> Single<UIImage> {
+        let single = Single<UIImage>.create { single -> Disposable in
+            AF.request(url)
+                .validate(statusCode: 200..<300)
+                .responseImage { response in
+                    switch response.result {
+                        case .success(let image):
+                            single(.success(image))
+                        case .failure(let error):
+                            single(.error(error))
+                    }
+            }
+            
+            return Disposables.create()
+        }
+        return single
     }
     
 }

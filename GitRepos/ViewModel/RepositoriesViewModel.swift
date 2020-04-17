@@ -11,21 +11,24 @@ import RxSwift
 import RxCocoa
 
 protocol RepositoriesViewModelProtocol {
-    var items: BehaviorRelay<[Repository]> { get }
+    var repositoryViewModels: BehaviorRelay<[RepositoryTableViewCellViewModel]> { get }
     var error: PublishRelay<Error> { get }
     var loading: PublishRelay<Bool> { get }
+    var currentRow: PublishRelay<Int> { get }
+    
+    func refreshSearch()
 }
 
 class RepositoriesViewModel: RepositoriesViewModelProtocol {
     
-    var items = BehaviorRelay<[Repository]>(value: [])
+    var repositoryViewModels = BehaviorRelay<[RepositoryTableViewCellViewModel]>(value: [])
     var error = PublishRelay<Error>()
     var loading = PublishRelay<Bool>()
+    var currentRow = PublishRelay<Int>()
     
     private var disposeBag = DisposeBag()
     
     init() {
-        refreshSearch()
     }
     
     func refreshSearch() {
@@ -34,7 +37,10 @@ class RepositoriesViewModel: RepositoriesViewModelProtocol {
             self?.loading.accept(false)
             switch event {
             case .success(let result):
-                self?.items.accept(result.items)
+                let viewModels = result.items.map { repository in
+                    return RepositoryTableViewCellViewModel(repository: repository)
+                }
+                self?.repositoryViewModels.accept(viewModels)
             case .error(let error):
                 self?.error.accept(error)
             }

@@ -11,10 +11,10 @@ import RxCocoa
 import RxSwift
 
 protocol RepositoryShortInfoViewModelProtocol {
-    var nameObservable: Observable<String> { get }
-    var descriptionObservable: Observable<String> { get }
-    var forksObservable: Observable<String> { get }
-    var starsObservable: Observable<String> { get }
+    var repoNameObservable: BehaviorRelay<String> { get }
+    var repoDescriptionObservable: BehaviorRelay<String> { get }
+    var forksObservable: BehaviorRelay<String> { get }
+    var watchersObservable: BehaviorRelay<String> { get }
 }
 
 class RepositoryShortInfoComponent: UIView {
@@ -23,16 +23,16 @@ class RepositoryShortInfoComponent: UIView {
         let label = UILabel()
         label.numberOfLines = 1
         label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-        label.textColor = .orange
+        label.textColor = UIColor.blue.withAlphaComponent(0.8)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private var descriptionLabel: UILabel = {
         let label = UILabel()
-        label.numberOfLines = 0
+        label.numberOfLines = 3
         label.font = UIFont.systemFont(ofSize: 14, weight: .light)
-        label.textColor = .orange
+        label.textColor = .darkGray
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -42,6 +42,7 @@ class RepositoryShortInfoComponent: UIView {
         let imageView = UIImageView(image: image)
         imageView.tintColor = .orange
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
@@ -54,15 +55,16 @@ class RepositoryShortInfoComponent: UIView {
         return label
     }()
     
-    private var starsImageView: UIImageView = {
+    private var watchersImageView: UIImageView = {
         let image = UIImage(named: .starIcon).withRenderingMode(.alwaysTemplate)
         let imageView = UIImageView(image: image)
         imageView.tintColor = .orange
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
-    private var starsLabel: UILabel = {
+    private var watchersLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         label.textColor = .orange
@@ -92,40 +94,43 @@ class RepositoryShortInfoComponent: UIView {
                      descriptionLabel,
                      forksImageView,
                      forksLabel,
-                     starsImageView,
-                     starsLabel])
+                     watchersImageView,
+                     watchersLabel])
     }
     
     private func applyConstraints() {
         repoNameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true
-        repoNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
-        repoNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 10).isActive = true
+        repoNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
+        repoNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10).isActive = true
         
         descriptionLabel.topAnchor.constraint(equalTo: repoNameLabel.bottomAnchor, constant: 10).isActive = true
-        descriptionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
-        descriptionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 10).isActive = true
+        descriptionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
+        descriptionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10).isActive = true
         
-        forksImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
-        forksImageView.topAnchor.constraint(equalTo: forksLabel.topAnchor).isActive = true
-        forksImageView.bottomAnchor.constraint(equalTo: forksLabel.topAnchor).isActive = true
+        forksImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
+        forksImageView.heightAnchor.constraint(equalToConstant: 16).isActive = true
+        forksImageView.widthAnchor.constraint(equalToConstant: 16).isActive = true
+        forksImageView.centerYAnchor.constraint(equalTo: forksLabel.centerYAnchor).isActive = true
         
         forksLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 10).isActive = true
         forksLabel.leadingAnchor.constraint(equalTo: forksImageView.trailingAnchor, constant: 4).isActive = true
+        forksLabel.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -10).isActive = true
         
-        starsImageView.leadingAnchor.constraint(equalTo: starsLabel.trailingAnchor, constant: 10).isActive = true
-        starsImageView.topAnchor.constraint(equalTo: starsLabel.topAnchor).isActive = true
-        starsImageView.bottomAnchor.constraint(equalTo: starsLabel.topAnchor).isActive = true
+        watchersImageView.leadingAnchor.constraint(equalTo: forksLabel.trailingAnchor, constant: 10).isActive = true
+        watchersImageView.heightAnchor.constraint(equalToConstant: 16).isActive = true
+        watchersImageView.widthAnchor.constraint(equalToConstant: 16).isActive = true
+        watchersImageView.centerYAnchor.constraint(equalTo: forksLabel.centerYAnchor).isActive = true
         
-        starsLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 10).isActive = true
-        starsLabel.leadingAnchor.constraint(equalTo: forksImageView.trailingAnchor, constant: 4).isActive = true
-        starsLabel.trailingAnchor.constraint(greaterThanOrEqualTo: trailingAnchor, constant: 10).isActive = true
+        watchersLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 10).isActive = true
+        watchersLabel.leadingAnchor.constraint(equalTo: watchersImageView.trailingAnchor, constant: 4).isActive = true
+        watchersLabel.centerYAnchor.constraint(equalTo: forksLabel.centerYAnchor).isActive = true
     }
     
     private func bindValues() {
-        viewModel.nameObservable.bind(to: repoNameLabel.rx.text).disposed(by: disposeBag)
-        viewModel.descriptionObservable.bind(to: descriptionLabel.rx.text).disposed(by: disposeBag)
+        viewModel.repoNameObservable.bind(to: repoNameLabel.rx.text).disposed(by: disposeBag)
+        viewModel.repoDescriptionObservable.bind(to: descriptionLabel.rx.text).disposed(by: disposeBag)
         viewModel.forksObservable.bind(to: forksLabel.rx.text).disposed(by: disposeBag)
-        viewModel.starsObservable.bind(to: starsLabel.rx.text).disposed(by: disposeBag)
+        viewModel.watchersObservable.bind(to: watchersLabel.rx.text).disposed(by: disposeBag)
     }
     
 }

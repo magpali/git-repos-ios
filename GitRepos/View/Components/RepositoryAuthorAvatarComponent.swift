@@ -11,8 +11,8 @@ import RxCocoa
 import RxSwift
 
 protocol RepositoryAuthorAvatarViewModelProtocol {
-    var avatarImageObservable: Observable<UIImage> { get }
-    var nameObservable: Observable<String> { get }
+    var avatarImageObservable: BehaviorRelay<UIImage> { get }
+    var ownerNameObservable: BehaviorRelay<String> { get }
 }
 
 class RepositoryAuthorAvatarComponent: UIView {
@@ -20,14 +20,17 @@ class RepositoryAuthorAvatarComponent: UIView {
     private var avatarImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = 30
         return imageView
     }()
 
     private var nameLabel: UILabel = {
         let label = UILabel()
-        label.numberOfLines = 0
+        label.numberOfLines = 2
         label.font = UIFont.systemFont(ofSize: 14, weight: .light)
-        label.textColor = .blue
+        label.textColor = UIColor.blue.withAlphaComponent(0.8)
+        label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -54,17 +57,21 @@ class RepositoryAuthorAvatarComponent: UIView {
     }
     
     private func applyConstraints() {
-        avatarImageView.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true
+        avatarImageView.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        avatarImageView.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        avatarImageView.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: 10).isActive = true
         avatarImageView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        avatarImageView.bottomAnchor.constraint(equalTo: centerYAnchor, constant: 10).isActive = true
         
         nameLabel.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 10).isActive = true
-        nameLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        nameLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 10).isActive = true
+        nameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5).isActive = true
+        nameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5).isActive = true
+        nameLabel.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -10).isActive = true
     }
     
     private func bindValues() {
         viewModel.avatarImageObservable.bind(to: avatarImageView.rx.image).disposed(by: disposeBag)
-        viewModel.nameObservable.bind(to: nameLabel.rx.text).disposed(by: disposeBag)
+        viewModel.ownerNameObservable.bind(to: nameLabel.rx.text).disposed(by: disposeBag)
     }
     
 }

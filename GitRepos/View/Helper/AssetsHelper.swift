@@ -9,4 +9,5 @@
 enum Asset: String {
     case forkIcon
     case starIcon
+    case avatarIcon
 }
