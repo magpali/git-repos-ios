@@ -13,6 +13,8 @@ import RxSwift
 protocol RepositoryAuthorAvatarViewModelProtocol {
     var avatarImageObservable: BehaviorRelay<UIImage> { get }
     var ownerNameObservable: BehaviorRelay<String> { get }
+    
+    func fetchImage()
 }
 
 class RepositoryAuthorAvatarComponent: UIView {
@@ -22,6 +24,7 @@ class RepositoryAuthorAvatarComponent: UIView {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 30
+        imageView.backgroundColor = UIColor.darkGray.withAlphaComponent(0.3)
         return imageView
     }()
 
@@ -45,6 +48,7 @@ class RepositoryAuthorAvatarComponent: UIView {
         addSubviews()
         applyConstraints()
         bindValues()
+        viewModel.fetchImage()
     }
     
     required init?(coder: NSCoder) {

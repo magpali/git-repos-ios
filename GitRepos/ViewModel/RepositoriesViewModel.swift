@@ -11,7 +11,7 @@ import RxSwift
 import RxCocoa
 
 protocol RepositoriesViewModelProtocol {
-    var repositoryViewModels: BehaviorRelay<[RepositoryTableViewCellViewModel]> { get }
+    var repositoryViewModels: BehaviorRelay<[RepositoryCellViewModelProtocol]> { get }
     var error: PublishRelay<Error> { get }
     var refreshing: BehaviorRelay<Bool> { get }
     var loading: BehaviorRelay<Bool> { get }
@@ -26,7 +26,7 @@ class RepositoriesViewModel: RepositoriesViewModelProtocol {
     private var currentPage = 1
     private var totalCount = 0
     
-    var repositoryViewModels = BehaviorRelay<[RepositoryTableViewCellViewModel]>(value: [])
+    var repositoryViewModels = BehaviorRelay<[RepositoryCellViewModelProtocol]>(value: [])
     var error = PublishRelay<Error>()
     var refreshing = BehaviorRelay<Bool>(value: false)
     var loading = BehaviorRelay<Bool>(value: false)

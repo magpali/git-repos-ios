@@ -19,6 +19,8 @@ class RepositoryTableViewCellViewModel: RepositoryCellViewModelProtocol {
     var avatarImageObservable: BehaviorRelay<UIImage>
     var ownerNameObservable: BehaviorRelay<String>
     
+    private var avatarURL: String
+    
     private var disposeBag = DisposeBag()
     
     init(repository: Repository) {
@@ -29,11 +31,11 @@ class RepositoryTableViewCellViewModel: RepositoryCellViewModelProtocol {
         avatarImageObservable = BehaviorRelay<UIImage>(value: UIImage.init(named: .avatarIcon))
         ownerNameObservable = BehaviorRelay<String>(value: repository.owner.login)
         
-        fetchImage(from: repository.owner.avatarUrl)
+        avatarURL = repository.owner.avatarUrl
     }
     
-    private func fetchImage(from urlString: String) {
-        guard let url = URL(string: urlString) else { return }
+    func fetchImage() {
+        guard let url = URL(string: avatarURL) else { return }
         
         RequestManager.requestImage(with: url).subscribe(onSuccess: { [weak self] image in
             self?.avatarImageObservable.accept(image)

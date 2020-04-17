@@ -29,6 +29,7 @@ class RepositoryTableViewCell: UITableViewCell {
     
     private func setup() {
         selectionStyle = .none
+        backgroundColor = .white
     }
 
     private func addSubviews() {

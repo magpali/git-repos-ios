@@ -2,6 +2,31 @@ PODS:
   - Alamofire (5.1.0)
   - AlamofireImage (4.1.0):
     - Alamofire (~> 5.1)
+  - iOSSnapshotTestCase (6.2.0):
+    - iOSSnapshotTestCase/SwiftSupport (= 6.2.0)
+  - iOSSnapshotTestCase/Core (6.2.0)
+  - iOSSnapshotTestCase/SwiftSupport (6.2.0):
+    - iOSSnapshotTestCase/Core
+  - Nimble (8.0.7)
+  - Nimble-Snapshots (8.2.0):
+    - Nimble-Snapshots/Core (= 8.2.0)
+  - Nimble-Snapshots/Core (8.2.0):
+    - iOSSnapshotTestCase (~> 6.0)
+    - Nimble (~> 8.0)
+  - OHHTTPStubs/Core (9.0.0)
+  - OHHTTPStubs/Default (9.0.0):
+    - OHHTTPStubs/Core
+    - OHHTTPStubs/JSON
+    - OHHTTPStubs/NSURLSession
+    - OHHTTPStubs/OHPathHelpers
+  - OHHTTPStubs/JSON (9.0.0):
+    - OHHTTPStubs/Core
+  - OHHTTPStubs/NSURLSession (9.0.0):
+    - OHHTTPStubs/Core
+  - OHHTTPStubs/OHPathHelpers (9.0.0)
+  - OHHTTPStubs/Swift (9.0.0):
+    - OHHTTPStubs/Default
+  - Quick (2.2.0)
   - RxCocoa (5.1.1):
     - RxRelay (~> 5)
     - RxSwift (~> 5)
@@ -12,6 +37,11 @@ PODS:
 DEPENDENCIES:
   - Alamofire (~> 5.1)
   - AlamofireImage (~> 4.1)
+  - iOSSnapshotTestCase
+  - Nimble
+  - Nimble-Snapshots
+  - OHHTTPStubs/Swift
+  - Quick
   - RxCocoa (~> 5.1)
   - RxSwift (~> 5.1)
 
@@ -19,6 +49,11 @@ SPEC REPOS:
   trunk:
     - Alamofire
     - AlamofireImage
+    - iOSSnapshotTestCase
+    - Nimble
+    - Nimble-Snapshots
+    - OHHTTPStubs
+    - Quick
     - RxCocoa
     - RxRelay
     - RxSwift
@@ -26,10 +61,15 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: 9d5c5f602928e512395b30950c5984eca840093c
   AlamofireImage: c4a2ba349885fb3064feb74d2e547bd42ce9be10
+  iOSSnapshotTestCase: 9ab44cb5aa62b84d31847f40680112e15ec579a6
+  Nimble: a73af6ecd4c9106f434f3d55fc54570be3739e0b
+  Nimble-Snapshots: 7a1133b2dcce853ecdf1026f0a17fedf03bc41c9
+  OHHTTPStubs: cb29d2a9d09a828ecb93349a2b0c64f99e0db89f
+  Quick: 7fb19e13be07b5dfb3b90d4f9824c855a11af40e
   RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
   RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
   RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
 
-PODFILE CHECKSUM: 0ac4d2fb4eba5e864adc7eb0d0410edd1c08cb91
+PODFILE CHECKSUM: bbfd7423fb84160c33ee014dd3ac39be278ac9a0
 
 COCOAPODS: 1.9.1
